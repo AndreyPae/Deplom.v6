@@ -1,0 +1,18 @@
+<!-- отображения результатов поиска -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Результат поиска</title>
+</head>
+<body>
+	<h1>Результат поиска</h1>
+	<p>Показан результат для "{{ query }}":</p>
+	<ul>
+		{% for product in products %}
+			<li>{{ product.name }}</li>
+		{% empty %}
+			<li>Товар не найден.</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

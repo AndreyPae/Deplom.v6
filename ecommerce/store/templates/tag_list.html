@@ -1,0 +1,17 @@
+<!-- отображения списка тегов -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Тег</title>
+</head>
+<body>
+	<h1>Тег</h1>
+	<ul>
+		{% for tag in tags %}
+			<li><a href="{% url 'store:product_list_by_tag' tag.slug %}">{{ tag.name }}</a></li>
+		{% empty %}
+			<li>Тег не найден.</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

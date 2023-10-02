@@ -1,0 +1,17 @@
+<!-- отображения списка категорий -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Список</title>
+</head>
+<body>
+	<h1>Список</h1>
+	<ul>
+		{% for category in categories %}
+			<li><a href="{% url 'store:product_list_by_category' category.slug %}">{{ category.name }}</a></li>
+		{% empty %}
+			<li>Категории не найдены.</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

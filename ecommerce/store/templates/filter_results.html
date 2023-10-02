@@ -1,0 +1,26 @@
+<!-- отображения результатов фильтрации -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Фильтр</title>
+</head>
+<body>
+	<h1>Фильтр</h1>
+	{% if category_id %}
+		<p>Показаны результаты по категории "{{ category.name }}":</p>
+	{% endif %}
+	{% if tag_id %}
+		<p>Показаны результаты по тегу "{{ tag.name }}":</p>
+	{% endif %}
+	{% if not category_id and not tag_id %}
+		<p>Фильтры не выбраны.</p>
+	{% endif %}
+	<ul>
+		{% for product in products %}
+			<li>{{ product.name }}</li>
+		{% empty %}
+			<li>Товары не найдены.</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- Шаблон для отображения корзины -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Корзина</h1>
+    {% if cart_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Продукт</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Итог</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart_item in cart_items %}
+                    <tr>
+                        <td>{{ cart_item.product.name }}</td>
+                        <td>
+                            <form method="post" action="{% url 'update_cart' cart_item.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ cart_item.quantity }}" min="1">
+                                <button type="submit">Обновить</button>
+                            </form>
+                        </td>
+                        <td>{{ cart_item.product.price }}</td>
+                        <td>{{ cart_item.quantity * cart_item.product.price }}</td>
+                        <td>
+                            <a href="{% url 'remove_from_cart' cart_item.id %}">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>{{ total }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <h2>Проверить</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Разместить заказ</button>
+        </form>
+    {% else %}
+        <p>Ваша корзина пуста.</p>
+    {% endif %}
+{% endblock %}
+
+<!-- Шаблон для добавления товара в корзину -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p>Цена: {{ product.price }}</p>
+    <form method="post" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <button type="submit">Добавить в корзину</button>
+    </form>
+{% endblock %}
+</body>
+</html>

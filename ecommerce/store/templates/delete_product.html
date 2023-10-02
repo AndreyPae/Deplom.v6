@@ -1,0 +1,15 @@
+<!-- удаления товара -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Удалить продукт</title>
+</head>
+<body>
+	<h1>Удалить продукт</h1>
+	<p>Вы уверены, что хотите удалить "{{ product.name }}"?</p>
+	<form method="POST">
+		{% csrf_token %}
+		<input type="submit" value="Delete">
+	</form>
+</body>
+</html>
